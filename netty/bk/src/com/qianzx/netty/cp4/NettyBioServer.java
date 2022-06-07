@@ -2,11 +2,14 @@ package com.qianzx.netty.cp4;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufAllocator;
+import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.oio.OioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.oio.OioServerSocketChannel;
+import io.netty.util.ReferenceCountUtil;
 
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
@@ -45,5 +48,11 @@ public class NettyBioServer {
         }
 
     }
+      public static void main(String[] args){
+          //ChannelOutboundHandler
+          ByteBuf byteBuf = Unpooled.unreleasableBuffer(Unpooled.copiedBuffer("Hi!\r\n", Charset.forName("utf-8")));
+          String s = ByteBufUtil.hexDump(byteBuf);
+          System.out.println(s);
+      }
 }
 

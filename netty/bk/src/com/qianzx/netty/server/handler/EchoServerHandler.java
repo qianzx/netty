@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.util.CharsetUtil;
+import io.netty.util.ReferenceCountUtil;
 
 import java.nio.charset.Charset;
 
@@ -22,7 +23,10 @@ public class EchoServerHandler extends ChannelHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf byteBuf = (ByteBuf) msg;
         System.out.println("Server received:" + byteBuf.toString(CharsetUtil.UTF_8));
-        ctx.write(byteBuf);
+        //ctx.write(byteBuf);
+        ReferenceCountUtil.release(msg);
+        ctx.fireChannelRead(msg);
+
     }
 
 
