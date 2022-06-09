@@ -34,6 +34,7 @@ public class EchoServerHandler extends ChannelHandlerAdapter {
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         ctx.writeAndFlush(Unpooled.EMPTY_BUFFER)
                 .addListener(ChannelFutureListener.CLOSE);
+
     }
     /**
     *如果不捕获异常：每个Channel都有一个与之相关联的ChannelPipeline，
