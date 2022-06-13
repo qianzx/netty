@@ -1,8 +1,5 @@
-package com.qianzx.netty.cp6;
+package io.netty.channel;
 
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.DefaultChannelPipeline;
 import io.netty.util.concurrent.EventExecutor;
 
 /**
@@ -11,7 +8,7 @@ import io.netty.util.concurrent.EventExecutor;
  * @Description TODO
  * @createTime 2022-06-10 15:31:00
  */
-public class DummyChannelHandlerContext extends io.netty.channel.AbstractChannelHandlerContext {
+public class DummyChannelHandlerContext extends AbstractChannelHandlerContext {
     public static ChannelHandlerContext DUMMY_INSTANCE = new DummyChannelHandlerContext(
             null,
             null,
@@ -22,7 +19,7 @@ public class DummyChannelHandlerContext extends io.netty.channel.AbstractChannel
     public DummyChannelHandlerContext(DefaultChannelPipeline pipeline,
                                       EventExecutor executor,
                                       String name, boolean inbound, boolean outbound) {
-        super(pipeline, executor, name, inbound, outbound);
+        super(pipeline, executor, name,ChannelHandler.class);
     }
 
     @Override

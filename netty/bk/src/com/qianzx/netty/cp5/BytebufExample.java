@@ -3,6 +3,7 @@ package com.qianzx.netty.cp5;
 import io.netty.buffer.*;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.EventLoop;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.ByteProcessor;
 import io.netty.util.CharsetUtil;
@@ -11,7 +12,8 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.Random;
 
-import static com.qianzx.netty.cp5.DummyChannelHandlerContext.DUMMY_INSTANCE;
+import static io.netty.channel.DummyChannelHandlerContext.DUMMY_INSTANCE;
+
 
 /**
  * @author qianzx
