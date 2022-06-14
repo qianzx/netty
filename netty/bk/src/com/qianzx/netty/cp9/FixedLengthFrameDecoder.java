@@ -26,7 +26,7 @@ public class FixedLengthFrameDecoder extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        while (in.readableBytes() > frameLength){
+        while (in.readableBytes() >= frameLength){
             ByteBuf byteBuf = in.readBytes(frameLength);
             out.add(byteBuf);
         }

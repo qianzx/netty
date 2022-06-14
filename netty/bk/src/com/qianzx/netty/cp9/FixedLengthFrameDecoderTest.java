@@ -4,7 +4,9 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.embedded.EmbeddedChannel;
 import org.junit.Test;
-import sun.awt.EmbeddedFrame;
+
+
+import static org.junit.Assert.*;
 
 /**
  * @author qianzx
@@ -15,19 +17,63 @@ import sun.awt.EmbeddedFrame;
 public class FixedLengthFrameDecoderTest {
     @Test
     public void testFramesDecoded(){
-        ByteBuf buffer = Unpooled.buffer();
-        for(int i = 0;i > 0;i++){
-            buffer.writeByte(i);
+        ByteBuf buf = Unpooled.buffer();
+        for(int i = 0;i < 9;i++){
+            buf.writeByte(i);
         }
-        ByteBuf input = buffer.duplicate();
-        EmbeddedChannel channel = new EmbeddedChannel(new FixedLengthFrameDecoder(3));
-        channel.writeInbound(input.retain());
-        channel.finish();
+        ByteBuf input = buf.duplicate();
+        EmbeddedChannel channel = new EmbeddedChannel(
+                new FixedLengthFrameDecoder(3));
+        // write bytes
+        assertTrue(channel.writeInbound(input.retain()));
+        assertTrue(channel.finish());
 
+        // read messages
         ByteBuf read = (ByteBuf) channel.readInbound();
-
-        ByteBuf slice = buffer.readSlice(3);
+        assertEquals(buf.readSlice(3), read);
         read.release();
+
+        read = (ByteBuf) channel.readInbound();
+        assertEquals(buf.readSlice(3), read);
+        read.release();
+
+        read = (ByteBuf) channel.readInbound();
+        assertEquals(buf.readSlice(3), read);
+        read.release();
+
+        assertNull(channel.readInbound());
+        buf.release();
+    }
+
+    @Test
+    public void testFramDecoded2(){
+        ByteBuf buf = Unpooled.buffer();
+        for (int i = 0; i < 9; i++) {
+            buf.writeByte(i);
+        }
+        ByteBuf input = buf.duplicate();
+
+        EmbeddedChannel channel = new EmbeddedChannel(new FixedLengthFrameDecoder(3));
+        assertFalse(channel.writeInbound(input.readBytes(2)));
+        ByteBuf byteBuf = input.readBytes(7);
+        assertTrue(channel.writeInbound(byteBuf));
+
+        assertTrue(channel.finish());
+
+        ByteBuf read = channel.readInbound();
+        assertEquals(read,buf.readSlice(3));
+        read.release();
+
+        read = channel.readInbound();
+        assertEquals(read,buf.readSlice(3));
+        read.release();
+
+        read =  channel.readInbound();
+        assertEquals(buf.readSlice(3), read);
+        read.release();
+
+        assertNull(channel.readInbound());
+        buf.release();
     }
 }
 
