@@ -1,7 +1,10 @@
-package com.qianzx.bf;
+package com.bilibili.netty.nio.cp1;
 
+
+import io.netty.util.CharsetUtil;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 /**
 * 黏包 半包
@@ -15,7 +18,7 @@ public class StickyHalfBag {
         split(source);
     }
 
-    private static void split(ByteBuffer source) {
+    public static void split(ByteBuffer source) {
         source.flip();
         for(int i = 0;i < source.limit();i++){
             if(source.get(i) == '\n'){
@@ -24,6 +27,7 @@ public class StickyHalfBag {
                 for(int j = 0; j < length; j++){
                     target.put(source.get());
                 }
+                System.out.println(CharsetUtil.UTF_8.decode(target));
             }
         }
         source.compact();
