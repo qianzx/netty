@@ -38,7 +38,7 @@
     <appender name="flylog" class="com.iflytek.fsp.flylog.sdk.java.plugin.logback.FlylogAppender">
     </appender>
     <!-- 修改为自己项目的包名 -->
-    <logger name="com.bilibili.netty" level="DEBUG" additivity="false">
+    <logger name="com.bilibili.netty.chat" level="DEBUG" additivity="false">
         <appender-ref ref="flylog"/>
     </logger>
     <!-- 配置日志平台，将日志收集到flylog平台中-->

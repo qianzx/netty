@@ -1,6 +1,6 @@
-package com.bilibili.netty.cp6.protocol;
+package com.bilibili.netty.cp6.procotoll;
 
-import com.bilibili.netty.cp6.Message;
+import com.bilibili.netty.chat.message.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
