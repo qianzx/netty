@@ -51,6 +51,9 @@ public abstract class Message implements Serializable {
     public static final int GroupMemberRequestMessage = 12;
     public static final int GroupMemberResponseMessage = 13;
 
+    public static final int RpcRequestMessage = 14;
+    public static final int RpcResponseMessage = 15;
+
     public static final int PingMessage = 12;
     public static final int PongMessage = 13;
 
@@ -71,6 +74,8 @@ public abstract class Message implements Serializable {
         messageClass.put(GroupChatResponseMessage, GroupChatResponseMessage.class);
         messageClass.put(PingMessage, PingMessage.class);
         messageClass.put(PongMessage, PongMessage.class);
+        messageClass.put(RpcRequestMessage, RpcRequestMessage.class);
+        messageClass.put(RpcResponseMessage, RpcResponseMessage.class);
 
     }
 }
